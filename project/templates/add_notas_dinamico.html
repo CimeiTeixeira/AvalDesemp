@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* Remove as setas do input type="number" */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    text-align: center;
+  }
+  .form-control-lg {
+    text-align: center;
+  }
+  .table .form-control-sm {
+    text-align: center;
+  }
+</style>
+<div class="jumbotron">
+  <h5>Adicionar Notas de Fatores para uma Pessoa</h5>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="form-group">
+          {{ form.nome.label(class="form-control-label") }}
+          {% if form.nome.errors %}
+            {{ form.nome(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.nome.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.nome(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-md-1">
+        <div class="form-group">
+          {{ form.ano.label(class="form-control-label") }}
+          {% if form.ano.errors %}
+            {{ form.ano(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.ano.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.ano(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-md-1">
+        <div class="form-group">
+          {{ form.ciclo.label(class="form-control-label") }}
+          {% if form.ciclo.errors %}
+            {{ form.ciclo(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.ciclo.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.ciclo(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          {{ form.nota_institucional.label(class="form-control-label") }}
+          {% if form.nota_institucional.errors %}
+            {{ form.nota_institucional(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.nota_institucional.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.nota_institucional(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          {{ form.qtd_pares.label(class="form-control-label") }}
+          {% if form.qtd_pares.errors %}
+            {{ form.qtd_pares(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.qtd_pares.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.qtd_pares(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <h6>Notas por Fator</h6>
+
+    <table class="table table-striped table-hover table-sm">
+      <thead>
+        <tr>
+          <th scope="col"><p align="center">ID</p></th>
+          <th scope="col"><p align="center">Nome</p></th>
+          <th scope="col"><p align="center">Descrição</p></th>
+          <th scope="col"><p align="center">Peso</p></th>
+          <th scope="col"><p align="center">Chefia</p></th>
+          <th scope="col"><p align="center">Autoavaliação</p></th>
+          <th scope="col"><p align="center">Pares</p></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for fator in fatores %}
+          <tr>
+            <td><p align="center">{{ fator.id }}</p></td>
+            <td><p align="center">{{ fator.apelido }}</p></td>
+            <td><p align="center">{{ fator.desc }}</p></td>
+            <td><p align="center">{{ fator.peso|decimal_com_virgula }}</p></td>
+            <td>
+              <input type="text" 
+                     name="nota_chefe_{{ loop.index0 }}" 
+                     class="form-control form-control-sm" 
+                inputmode="decimal"
+                     placeholder="0"
+                     value="0">
+            </td>
+            <td>
+              <input type="text" 
+                     name="nota_aa_{{ loop.index0 }}" 
+                     class="form-control form-control-sm" 
+                inputmode="decimal"
+                     placeholder="0"
+                     value="0">
+            </td>
+            <td>
+              <input type="text" 
+                name="nota_pares_{{ loop.index0 }}" 
+                class="form-control form-control-sm nota-pares-input" 
+                inputmode="decimal"
+                placeholder="0"
+                value="0">
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="form-group">
+      {{ form.submit(class="btn btn-primary") }}
+      <a href="{{url_for('core.lista_pessoas')}}" class="btn btn-secondary">Cancelar</a>
+    </div>
+
+  </form>
+</div>
+<script>
+  (function () {
+    function normalizeValue(value) {
+      return value.replace(',', '.');
+    }
+
+    function toggleParesInputs() {
+      var qtdInput = document.getElementById('qtd_pares');
+      var paresInputs = document.querySelectorAll('.nota-pares-input');
+      if (!qtdInput) {
+        return;
+      }
+      var qtd = parseFloat(normalizeValue(qtdInput.value || '0')) || 0;
+      var disable = qtd <= 0;
+      paresInputs.forEach(function (input) {
+        input.disabled = disable;
+        if (disable) {
+          input.value = '0';
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var qtdInput = document.getElementById('qtd_pares');
+      if (qtdInput) {
+        qtdInput.addEventListener('input', toggleParesInputs);
+        qtdInput.addEventListener('change', toggleParesInputs);
+      }
+      toggleParesInputs();
+    });
+  })();
+</script>
+{% endblock %}

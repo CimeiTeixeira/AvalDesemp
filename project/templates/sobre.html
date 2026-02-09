@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Base Conceitual</h2>
+                </div>
+                <div class="card-body">
+                    <div class="readme-content" style="line-height: 1.8;">
+                        {{ conteudo | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .readme-content {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.8;
+    }
+
+    .readme-content h1,
+    .readme-content h2,
+    .readme-content h3,
+    .readme-content h4,
+    .readme-content h5,
+    .readme-content h6,
+    .readme-content .section-title {
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .readme-content h1 {
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 0.3em;
+        font-size: 2.2em;
+    }
+
+    .readme-content h2,
+    .readme-content .section-title {
+        font-size: 1.6em;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 0.3em;
+        color: #007bff;
+    }
+
+    .readme-content h3 {
+        font-size: 1.4em;
+        color: #0056b3;
+    }
+
+    .readme-content h4 {
+        font-size: 1.2em;
+        color: #495057;
+    }
+
+    .readme-content ul,
+    .readme-content ol {
+        margin-left: 1.5em;
+        margin-bottom: 1em;
+        padding-left: 1em;
+    }
+
+    .readme-content .custom-list {
+        list-style-type: disc;
+        margin-left: 2em;
+    }
+
+    .readme-content li {
+        margin-bottom: 0.5em;
+        line-height: 1.6;
+    }
+
+    .readme-content code {
+        background-color: #f4f4f4;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+        color: #d63384;
+    }
+
+    .readme-content pre {
+        background-color: #f4f4f4;
+        padding: 1em;
+        border-radius: 5px;
+        border-left: 4px solid #007bff;
+        overflow-x: auto;
+        margin-bottom: 1em;
+    }
+
+    .readme-content blockquote {
+        border-left: 4px solid #007bff;
+        padding-left: 1em;
+        margin-left: 0;
+        color: #666;
+    }
+
+    .readme-content a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .readme-content a:hover {
+        text-decoration: underline;
+    }
+
+    .readme-content table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 1em 0;
+    }
+
+    .readme-content table th,
+    .readme-content table td {
+        border: 1px solid #dee2e6;
+        padding: 0.75em;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .readme-content table th {
+        background-color: #007bff;
+        color: white;
+        font-weight: 600;
+    }
+
+    .readme-content table tbody tr:nth-child(odd) {
+        background-color: #f8f9fa;
+    }
+
+    .readme-content table tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .readme-content hr {
+        margin: 2em 0;
+        border: none;
+        border-top: 2px solid #ddd;
+    }
+
+    .readme-content p {
+        margin-bottom: 1em;
+        text-align: justify;
+    }
+
+    .readme-content .font-italic {
+        font-style: italic;
+        background-color: #fff3cd;
+        padding: 0.5em 1em;
+        border-left: 4px solid #ffc107;
+        margin: 1em 0;
+    }
+</style>
+
+{% endblock %}

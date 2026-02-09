@@ -1,0 +1,51 @@
+# -*- mode: python -*-
+
+block_cipher = None
+
+a = Analysis(['app.py'],
+             pathex=['C:\\Users\\cimei\\Documents\\Scripts\\AvalDesemp'],
+             binaries=[],
+             datas=[('instance/flask.cfg', 'instance'),
+                    ('project/templates', 'project/templates'),
+                    ('project/core', 'project/core'),
+                    ('project/static', 'project/static'),
+                    ('project/__init__.py', 'project'),
+                    ('project/models.py', 'project'),
+                    ('project/readme.md', 'project'),
+                    ('project/error_pages', 'project/error_pages')],
+             hiddenimports=['sqlalchemy.sql.default_comparator',
+                           'sqlalchemy.orm',
+                           'flask',
+                           'flask_sqlalchemy',
+                           'flask_wtf',
+                           'wtforms',
+                           'project.error_pages',
+                           'project.models'],
+             hookspath=[],
+             runtime_hooks=[],
+             excludes=[],
+             win_no_prefer_redirects=False,
+             win_private_assemblies=False,
+             cipher=block_cipher,
+             noarchive=False)
+
+pyz = PYZ(a.pure, a.zipped_data,
+          cipher=block_cipher)
+
+exe = EXE(pyz,
+          a.scripts,
+          a.binaries,
+          a.zipfiles,
+          a.datas,
+          [],
+          name='app',
+          debug=False,
+          bootloader_ignore_signals=False,
+          strip=False,
+          upx=True,
+          upx_exclude=[],
+          runtime_tmpdir=None,
+          console=True,
+          target_arch=None,
+          codesign_identity=None,
+          entitlements_file=None)

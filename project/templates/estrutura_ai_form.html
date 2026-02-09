@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .form-control-lg {
+    text-align: center;
+  }
+</style>
+<div class="jumbotron">
+  <h5>{{acao}} Estrutura AI</h5>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="form-row">
+        <div class="col-2">
+            <div class="form-group">
+            {{ form.peso_metas.label(class="form-control-label") }}
+            {% if form.peso_metas.errors %}
+                {{ form.peso_metas(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.peso_metas.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+                </div>
+            {% else %}
+                {{ form.peso_metas(class="form-control form-control-lg") }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-2">
+            <div class="form-group">
+            {{ form.peso_fatores.label(class="form-control-label") }}
+            {% if form.peso_fatores.errors %}
+                {{ form.peso_fatores(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.peso_fatores.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+                </div>
+            {% else %}
+                {{ form.peso_fatores(class="form-control form-control-lg") }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+      {{ form.submit(class="btn btn-primary") }}
+      <a href="{{url_for('core.lista_estrutura_ai')}}" class="btn btn-secondary">Cancelar</a>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

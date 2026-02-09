@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h5>Pesos</h5>
+
+<caption>
+  <div class="row">
+      <div class="col">
+        <p>Lista de <span class="badge badge-pill badge-primary">{{pesos|length}}</span> registros cadastrados.</p>
+      </div>
+  </div>
+</caption>
+
+  <table class="table table-striped table-hover table-sm">
+    <caption>Pesos</caption>
+    <thead>
+      <tr>
+        <th scope="col"><p align="center">ID</p></th>
+        <th scope="col"><p align="center">Chefia</p></th>
+        <th scope="col"><p align="center">Autoavaliação</p></th>
+        <th scope="col"><p align="center">Pares ou Subordinados</p></th>
+        <th scope="col"><p align="center">Ações</p></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for peso in pesos %}
+        <tr>
+          <th scope="row"><p align="center">{{peso.id}}</p></th>
+          <td><p align="center">{{peso.chefe|decimal_com_virgula}}</p></td>
+          <td><p align="center">{{peso.aa|decimal_com_virgula}}</p></td>
+          <td><p align="center">{{peso.pares|decimal_com_virgula}}</p></td>
+          <td><p align="center">
+            <a href="{{url_for('core.edit_pesos', peso_id=peso.id)}}" class="btn btn-sm btn-warning">Editar</a>
+          </p></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+{% endblock %}

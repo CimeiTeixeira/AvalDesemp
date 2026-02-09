@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+<table class="table table-bordered">
+  <thead>
+    <tr style="text-align:center">
+      <th scope="col">CNPq</span></th>
+      <th scope="col">Conselho Nacional de Desenvolvimento Científico e Tecnológico</th>
+      <th scope="col">Avaliação de Desempenho Individual</th>
+      <th scope="col">Ciclo: {{ciclo}}</th>
+    </tr>
+  </thead>  
+</table>
+
+<table class="table table-bordered">
+  <thead>  
+    <tr style="text-align:left">
+      <th scope="col" style="width: 20px">Nome</span></th>
+      <th scope="col">{{nome}}</span></th>
+  </thead>
+</table>  
+
+<h3>AVALIAÇÃO DE METAS</h3>
+
+<table class="table table-bordered">
+
+  <thead>  
+    <tr style="text-align:center">
+      <th scope="col">#</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Alcance Apurado (%)</th>
+      <th scope="col">Peso</th>
+      <th scope="col">Total (Peso x Alcance Apurado)</th>
+  </thead>
+
+  <tbody>
+
+    {% for meta in metas %}
+      <tr>
+        <th scope="row" style="text-align:center">{{metas.index(meta) + 1}}</th>
+        <td>{{ meta.meta }}</td>
+        <td style="text-align:center">{{ meta.alcance|decimal_com_virgula }}</td>
+        <td style="text-align:center">{{ meta.peso|decimal_com_virgula }}</td>
+        <td style="text-align:center">{{ (meta.alcance * meta.peso)|decimal_com_virgula }}</td>
+      </tr>
+    {% endfor %}  
+
+      <tr>
+        <th scope="row" colspan="3" style="text-align:right">Total:</th>
+        <td style="text-align:center">{% if calc.soma_pesos == None%}
+                                        {{0|decimal_com_virgula}}
+                                      {% else %}  
+                                        {{(calc.soma_pesos|round(2))|decimal_com_virgula}}</td>
+                                      {% endif %}</td>
+        <td style="text-align:center">{% if calc.soma_ap == None%}
+                                        {{0|decimal_com_virgula}}
+                                      {% else %}  
+                                        {{(calc.soma_ap|round(2))|decimal_com_virgula}}</td>
+                                      {% endif %}</td>
+      </tr>
+      <tr>
+        <th scope="row" colspan="4" style="text-align:right">Média Ponderada:</th>
+        <td style="text-align:center">{% if calc.AFMI == None%}
+                                        {{0|decimal_com_virgula}}
+                                      {% else %}  
+                                        {{(calc.AFMI|round(2))|decimal_com_virgula}}</td>
+                                      {% endif %}</td>
+      </tr>
+
+  </tbody>
+
+</table>
+
+<h3>AVALIAÇÃO DE FATORES</h3>
+
+<h4>Chefia</h4>
+
+<table class="table table-bordered">
+
+  <thead>  
+    <tr style="text-align:center">
+      <th scope="col">#</th>
+      <th scope="col"  style="width: 750px">Descrição</th>
+      <th scope="col">Nota</th>
+      <th scope="col">Peso</th>
+      <th scope="col">Total (Peso x Nota)</th>
+  </thead>
+
+  <tbody>
+
+    {% for nota in notas_fatores %}
+      <tr>
+        <th scope="row" style="text-align:center">{{notas_fatores.index(nota) + 1}}</th>
+        <td>{{ nota.desc }}</td>
+        <td style="text-align:center">{{ nota.nota_chefe|decimal_com_virgula }}</td>
+        <td style="text-align:center">{{ nota.peso|decimal_com_virgula }}</td>
+        <td style="text-align:center">{{ (nota.peso * nota.nota_chefe)|decimal_com_virgula }}</td>
+      </tr>
+    {% endfor %}  
+
+      <tr>
+        <th scope="row" colspan="2" style="text-align:right">Total:</th>
+        <td style="text-align:center">{{calc.soma_notas_chefe|decimal_com_virgula}}</td>
+        <td style="text-align:center">{{calc.soma_fatores_pesos|decimal_com_virgula}}</td>
+        <td style="text-align:center">{{calc.pontos_chefe|decimal_com_virgula}}</td>
+      </tr>
+      <tr>
+        <th scope="row" colspan="4" style="text-align:right">Média Ponderada:</th>
+        <td style="text-align:center">{{calc.MPFC|round(2)|decimal_com_virgula}}</td>
+      </tr>
+
+
+  </tbody>
+
+</table>
+
+<h4>Autoavaliação</h4>
+
+<table class="table table-bordered">
+
+  <thead>  
+    <tr style="text-align:center">
+      <th scope="col">#</th>
+      <th scope="col"  style="width: 750px">Descrição</th>
+      <th scope="col">Nota</th>
+      <th scope="col">Peso</th>
+      <th scope="col">Total (Peso x Nota)</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    {% for nota in notas_fatores %}
+      <tr>
+        <th scope="row" style="text-align:center">{{notas_fatores.index(nota) + 1}}</th>
+        <td>{{ nota.desc }}</td>
+        <td style="text-align:center">{{ nota.nota_aa|decimal_com_virgula }}</td>
+        <td style="text-align:center">{{ nota.peso|decimal_com_virgula }}</td>
+        <td style="text-align:center">{{ (nota.peso * nota.nota_aa)|decimal_com_virgula }}</td>
+      </tr>
+    {% endfor %}  
+
+      <tr>
+        <th scope="row" colspan="2" style="text-align:right">Total:</th>
+        <td style="text-align:center">{{calc.soma_notas_aa|decimal_com_virgula}}</td>
+        <td style="text-align:center">{{calc.soma_fatores_pesos|decimal_com_virgula}}</td>
+        <td style="text-align:center">{{calc.pontos_aa|decimal_com_virgula}}</td>
+      </tr>
+      <tr>
+        <th scope="row" colspan="4" style="text-align:right">Média Ponderada:</th>
+        <td style="text-align:center">{{(calc.MPFAA|round(2))|decimal_com_virgula}}</td>
+      </tr>
+
+
+  </tbody>
+
+</table>
+
+{% if calc.qtd_pares != 0%}
+
+    <h4>Pares ({{calc.qtd_pares}} 
+      {% if calc.qtd_pares == 1%}
+        avaliador)
+      {% else %}
+        avaliadores)
+      {% endif %}
+    </h4>
+
+    <table class="table table-bordered">
+
+      <thead>  
+        <tr style="text-align:center">
+          <th scope="col">#</th>
+          <th scope="col"  style="width: 750px">Descrição</th>
+          <th scope="col">Nota</th>
+          <th scope="col">Média</th>
+          <th scope="col">Peso</th>
+          <th scope="col">Total (Peso x Média)</th>
+        </tr>  
+      </thead>
+
+      <tbody>
+
+        {% for nota in notas_fatores %}
+          <tr>
+            <th scope="row" style="text-align:center">{{notas_fatores.index(nota) + 1}}</th>
+            <td>{{ nota.desc }}</td>
+            <td style="text-align:center">{{ nota.nota_pares|decimal_com_virgula }}</td>
+            {% if calc.qtd_pares == 0 %}
+              <td style="text-align:center">{{0|decimal_com_virgula}}</td>
+            {% else %}
+              <td style="text-align:center">{{ (nota.nota_pares / calc.qtd_pares)|decimal_com_virgula }}</td>
+            {% endif %}
+            <td style="text-align:center">{{ nota.peso|decimal_com_virgula }}</td>
+            {% if calc.qtd_pares == 0 %}
+              <td style="text-align:center">{{0|decimal_com_virgula}}</td>
+            {% else %}
+              <td style="text-align:center">{{ ((nota.nota_pares / calc.qtd_pares) * nota.peso)|decimal_com_virgula }}</td>
+            {% endif %} 
+          </tr>
+        {% endfor %}  
+
+          <tr>
+            <th scope="row" colspan="2" style="text-align:right">Total:</th>
+            <td style="text-align:center">{{calc.soma_notas_pares|decimal_com_virgula}}</td>
+            <td style="text-align:center"></td>
+            <td style="text-align:center">{{calc.soma_fatores_pesos|decimal_com_virgula}}</td>
+            <td style="text-align:center">{{calc.media_notas_pares_vezes_pesos|decimal_com_virgula}}</td>
+          </tr>
+          <tr>
+            <th scope="row" colspan="5" style="text-align:right">Média Ponderada:</th>
+            <td style="text-align:center">{{calc.MPFP|round(2)|decimal_com_virgula}}</td>
+          </tr>
+
+      </tbody>
+
+    </table>
+
+{% endif %}
+
+<h3>TOTALIZAÇÃO</h3>
+
+<table class="table table-bordered">
+
+  <thead>  
+    <tr style="text-align:center">
+      <th scope="col"></th>
+      <th scope="col">Chefia</th>
+      <th scope="col">Autoavaliação</th>
+      <th scope="col">Pares</th>
+      <th scope="col">Nota total calculada</th>
+    </tr>  
+  </thead>
+
+  <tbody>
+
+      <tr>
+        <th scope="row" style="text-align:center">Total da nota:</th>
+        <td style="text-align:center">{{(calc.total_chefe|round(2))|decimal_com_virgula}}</td>
+        <td style="text-align:center">{{(calc.total_aa|round(2))|decimal_com_virgula}}</td>
+        <td style="text-align:center">{% if calc.total_pares == None%}
+                                        {{0|decimal_com_virgula}}
+                                      {% else %}  
+                                        {{(calc.total_pares|round(2))|decimal_com_virgula}}</td>
+                                      {% endif %}  
+        <td style="text-align:center">{% if calc.total_pares == None%}
+                                        {{(calc.nota_fatores_sem_pares|round(2))|decimal_com_virgula}}
+                                      {% else %}  
+                                        {{(calc.nota_fatores|round(2))|decimal_com_virgula}}</td>
+                                      {% endif %}</td>
+      </tr>
+
+  </tbody>
+</table>    
+
+
+<h4>Conceito: {{ conceito }}</h4>
+<h4>Pontuação: {{ alcance|decimal_com_virgula }}</h4>
+<h4>Avaliação individual: {{ nota_fatores|decimal_com_virgula }}</h4>
+<br>
+
+<h3 style="text-align:center">Cálculo da Avaliação Final para fins de pagamento de gratificação 
+de desempenho</h3>
+
+<table class="table table-bordered">
+
+  <thead>  
+    <tr style="text-align:center">
+      <th scope="col">Descrição</th>
+      <th scope="col">Pontuação obtida</th>
+    </tr>  
+  </thead>
+
+  <tbody>
+
+      <tr>
+        <td style="text-align:center">Avaliação Individual Arredondada</td>
+        <td style="text-align:center">{{nota_final_individual_corrigida|decimal_com_virgula}}</td>
+      </tr>
+
+      <tr>
+        <td style="text-align:center">Avaliação Institucional</td>
+        <td style="text-align:center">{{ calc.nota_institucional|decimal_com_virgula }}</td>
+      </tr>
+
+  </tbody>
+</table>
+
+<h3 style="text-align:center">PONTUAÇÃO FINAL: {{ nota_final|decimal_com_virgula }}</h3>
+
+<br>
+
+</div>
+
+{% endblock %}

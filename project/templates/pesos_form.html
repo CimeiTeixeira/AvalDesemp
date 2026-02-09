@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .form-control-lg {
+    text-align: center;
+  }
+</style>
+<div class="jumbotron">
+  <h5>{{acao}} Pesos</h5>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="form-row">
+        <div class="col-1">
+            <div class="form-group">
+            {{ form.chefe.label(class="form-control-label") }}
+            {% if form.chefe.errors %}
+                {{ form.chefe(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.chefe.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+                </div>
+            {% else %}
+                {{ form.chefe(class="form-control form-control-lg") }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-1">
+            <div class="form-group">
+            {{ form.aa.label(class="form-control-label") }}
+            {% if form.aa.errors %}
+                {{ form.aa(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.aa.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+                </div>
+            {% else %}
+                {{ form.aa(class="form-control form-control-lg") }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-1">
+            <div class="form-group">
+            {{ form.pares.label(class="form-control-label") }}
+            {% if form.pares.errors %}
+                {{ form.pares(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.pares.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+                </div>
+            {% else %}
+                {{ form.pares(class="form-control form-control-lg") }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+      {{ form.submit(class="btn btn-primary") }}
+      <a href="{{url_for('core.lista_pesos')}}" class="btn btn-secondary">Cancelar</a>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

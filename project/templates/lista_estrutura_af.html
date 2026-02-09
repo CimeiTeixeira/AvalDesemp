@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h5>Estrutura AF</h5>
+
+<caption>
+  <div class="row">
+      <div class="col">
+        <p>Lista de <span class="badge badge-pill badge-primary">{{estruturas|length}}</span> registros cadastrados.</p>
+      </div>
+  </div>
+</caption>
+
+  <table class="table table-striped table-hover table-sm">
+    <caption>Estrutura AF</caption>
+    <thead>
+      <tr>
+        <th scope="col"><p align="center">ID</p></th>
+        <th scope="col"><p align="center">Peso Institucional</p></th>
+        <th scope="col"><p align="center">Peso Individual</p></th>
+        <th scope="col"><p align="center">Ações</p></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for estrutura in estruturas %}
+        <tr>
+          <th scope="row"><p align="center">{{estrutura.id}}</p></th>
+          <td><p align="center">{{estrutura.peso_institucional|decimal_com_virgula}}</p></td>
+          <td><p align="center">{{estrutura.peso_individual|decimal_com_virgula}}</p></td>
+          <td><p align="center">
+            <a href="{{url_for('core.edit_estrutura_af', estrutura_id=estrutura.id)}}" class="btn btn-sm btn-warning">Editar</a>
+          </p></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+{% endblock %}

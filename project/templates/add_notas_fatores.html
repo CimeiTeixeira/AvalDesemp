@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+
+<div class="jumbotron">
+
+{% if acao == 'see' %}
+<h1>Visualizar/Alterar Notas dos Fatores</h1>
+{% else %}
+<h1>Inserir Notas dos Fatores</h1>
+{% endif %}
+
+{% macro render_field(field,obr) %}
+  {% if obr == True %}
+    <dt>{{ field.label(class="form-control-label") }}<span class="text-danger font-weight-bold">*</span>
+  {% else %}
+    <dt>{{ field.label(class="form-control-label") }}
+  {% endif %}
+  <dd>{{ field(**kwargs)|safe }}
+  {% if field.errors %}
+    <ul class=errors>
+    {% for error in field.errors %}
+      <li><span class="text-danger font-weight-bold">{{ error }}</span></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  </dd>
+{% endmacro %}
+
+<form action="" method='POST' class="form" role="form">
+  {{ form.hidden_tag() }}
+
+ 
+<div class="form-row">
+  <div class="col-2">
+    <div class="form-group">
+        {{ render_field(form.ano,class="form-control", obr=True) }}
+    </div>
+  </div>
+  <div class="col-2">
+    <div class="form-group">
+        {{ render_field(form.ciclo,class="form-control", obr=True) }}
+    </div>
+  </div>   
+</div> 
+
+<div class="form-row">
+  <div class="col-9">
+    <div class="form-group">
+        {{ render_field(form.nome,class="form-control", obr=True) }}
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+        {{ render_field(form.qtd_pares,class="form-control", obr=True) }}
+    </div>
+  </div>   
+</div>
+
+<div class="row">
+
+  <div class="col-5">
+
+    <div class="card border-primary" style="width: 27rem;">
+    <div class="card-body" >
+
+      <div class="form-row">
+        <div class="col-4">
+          <div class="form-group">
+            <b>Chefia</b>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <b>Auto Avaliação</b>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <b>Pares</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.C_fator_1,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.A_fator_1,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.P_fator_1,class="form-control", obr=True) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.C_fator_2,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.A_fator_2,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.P_fator_2,class="form-control", obr=True) }}
+          </div>
+        </div>
+      </div>  
+
+      <div class="form-row">
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.C_fator_3,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.A_fator_3,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.P_fator_3,class="form-control", obr=True) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.C_fator_4,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.A_fator_4,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.P_fator_4,class="form-control", obr=True) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.C_fator_5,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.A_fator_5,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.P_fator_5,class="form-control", obr=True) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.C_fator_6,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.A_fator_6,class="form-control", obr=True) }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            {{ render_field(form.P_fator_6,class="form-control", obr=True) }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+<div class="col">
+  <div class="card border-info">
+    <div class="card-header"><div class="text-info">Fatores</div></div>
+    <div class="card-body" >
+    
+      {% for item in fatores %}
+
+      <b>Fator {{item.id}}</b> - <b>peso {{item.peso}}</b> - {{item.desc}}
+      <br>  
+
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+</div>
+
+<br>
+
+  <div class="form-group">
+    {{ form.submit(class="btn btn-primary") }}<span class="text-muted"> Atenção: campos marcados com * são obrigatórios.</span>
+  </div>
+</form>
+
+
+</div>
+</div>
+
+
+
+{% endblock %}

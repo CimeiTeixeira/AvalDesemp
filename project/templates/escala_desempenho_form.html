@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .escala-num-input {
+        text-align: center;
+    }
+</style>
+<div class="jumbotron">
+  <h5>{{acao}} Escala de Desempenho</h5>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="form-row">
+        <div class="col-3">
+            <div class="form-group">
+            {{ form.escala.label(class="form-control-label") }}
+            {% if form.escala.errors %}
+                {{ form.escala(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.escala.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+                </div>
+            {% else %}
+                {{ form.escala(class="form-control form-control-lg") }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-1">
+            <div class="form-group">
+            {{ form.alcance.label(class="form-control-label") }}
+            {% if form.alcance.errors %}
+                {{ form.alcance(class="form-control form-control-lg is-invalid escala-num-input") }}
+                <div class="invalid-feedback">
+                {% for error in form.alcance.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+                </div>
+            {% else %}
+                {{ form.alcance(class="form-control form-control-lg escala-num-input") }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-1">
+            <div class="form-group">
+            {{ form.intervalo_inf.label(class="form-control-label") }}
+            {% if form.intervalo_inf.errors %}
+                {{ form.intervalo_inf(class="form-control form-control-lg is-invalid escala-num-input") }}
+                <div class="invalid-feedback">
+                {% for error in form.intervalo_inf.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+                </div>
+            {% else %}
+                {{ form.intervalo_inf(class="form-control form-control-lg escala-num-input") }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-1">
+            <div class="form-group">
+            {{ form.intervalo_sup.label(class="form-control-label") }}
+            {% if form.intervalo_sup.errors %}
+                {{ form.intervalo_sup(class="form-control form-control-lg is-invalid escala-num-input") }}
+                <div class="invalid-feedback">
+                {% for error in form.intervalo_sup.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+                </div>
+            {% else %}
+                {{ form.intervalo_sup(class="form-control form-control-lg escala-num-input") }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+      {{ form.submit(class="btn btn-primary") }}
+      <a href="{{url_for('core.lista_escala_desempenho')}}" class="btn btn-secondary">Cancelar</a>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

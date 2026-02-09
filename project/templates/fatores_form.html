@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .peso-input {
+    text-align: center;
+  }
+</style>
+<div class="jumbotron">
+  <h5>{{acao}} Fator</h5>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="form-row">
+        <div class="col-3">
+            <div class="form-group">
+            {{ form.apelido.label(class="form-control-label") }}
+            {% if form.apelido.errors %}
+                {{ form.apelido(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.apelido.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+                </div>
+            {% else %}
+                {{ form.apelido(class="form-control form-control-lg") }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+      {{ form.desc.label(class="form-control-label") }}
+      {% if form.desc.errors %}
+        {{ form.desc(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.desc.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.desc(class="form-control form-control-lg") }}
+      {% endif %}
+    </div>
+
+    <div class="form-row">
+        <div class="col-1">
+            <div class="form-group">
+            {{ form.peso.label(class="form-control-label") }}
+            {% if form.peso.errors %}
+              {{ form.peso(class="form-control form-control-lg is-invalid peso-input") }}
+                <div class="invalid-feedback">
+                {% for error in form.peso.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+                </div>
+            {% else %}
+              {{ form.peso(class="form-control form-control-lg peso-input") }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+      {{ form.submit(class="btn btn-primary") }}
+      <a href="{{url_for('core.lista_fatores')}}" class="btn btn-secondary">Cancelar</a>
+    </div>
+
+  </form>
+</div>
+{% endblock %}
