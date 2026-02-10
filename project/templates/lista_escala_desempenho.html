@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+
+<div class="container">
 <div class="jumbotron">
+
   <h5>Escala de Desempenho</h5>
 
     <div class="row">
@@ -23,7 +26,7 @@
     <caption>Escalas de Desempenho</caption>
     <thead>
       <tr>
-        <th scope="col"><p align="center">ID</p></th>
+        <th scope="col"><p align="center">#</p></th>
         <th scope="col"><p align="center">Escala</p></th>
         <th scope="col"><p align="center">Pontuação para Pagamento</p></th>
         <th scope="col"><p align="center">Intervalo Inferior</p></th>
@@ -34,7 +37,7 @@
     <tbody>
       {% for escala in escalas %}
         <tr>
-          <th scope="row"><p align="center">{{escala.id}}</p></th>
+          <th scope="row"><p align="center">{{escalas.index(escala) + 1}}</p></th>
           <td><p align="center">{{escala.escala}}</p></td>
           <td><p align="center">{{escala.alcance|decimal_com_virgula}}</p></td>
           <td><p align="center">{{escala.intervalo_inf|decimal_com_virgula}}</p></td>
@@ -70,5 +73,6 @@
     </tbody>
   </table>
 
+</div>
 </div>
 {% endblock %}

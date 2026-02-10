@@ -101,3 +101,102 @@ Avaliação Final = ((100 * 80) + (75 * 20)) / (80 + 20)
 Avaliação Final = (8000 + 1500) (100)  
 Avaliação Final = 9500 /100  
 Avaliação Final para fins de pagamento de GD = 95 pontos
+
+5. Exemplo de inserção de dados para uma pessoa e resultados obtidos
+
+À uma determinada pessoa, foram atribuidas 3 Metas, com pesos diferentes:
+
+• Meta 1: nota = 90, peso = 5
+• Meta 2: nota = 75, peso = 3
+• Meta 3: nota = 80, peso = 2
+
+Nota das Metas = ((90×5) + (75×3) + (80×2)) / (5+3+2)
+
+Nota das Metas = (450 + 225 + 160) / (10)
+Nota das Metas = 835 / 10
+Nota das Metas = 83,5
+
+Neste exemplo, o órgão definiu 3 Fatores comportamentais distindos, com os seguintes pesos:
+
+• Fator 1: peso 2
+• Fator 2: peso 3
+• Fator 3: peso 5
+
+Estes Fatores serão avaliados por 3 entes, com pesos pré-definidos: Chefia, próprio servidor (auto avaliação) e pares. Se a Chefia não avaliar, será computada nota zero neste quesito. O mesmo ocorre se não houver autoavalição. Se não houver avaliação por pares, o peso das anteriores será acrescido de metade do peso ora definido para a avaliação por pares. 
+
+Para o exemplo tivemos avaliação da chefia, autoavaliação e de 2 pares.
+
+A avaliação da chefia:
+
+o Fator 1: nota 60
+o Fator 2: nota 60
+o Fator 3: nota 100
+
+Nota da chefia = ((60 * 2) + (60 * 3) + (100 * 5)) / (2 + 3 + 5)
+Nota da chefia = (120 + 180 + 500) / 10
+Nota da chefia = 800 / 10
+Nota da chefia = 80
+
+A autoavaliação:
+
+• Fator 1: nota 40
+• Fator 2: nota 80 
+• Fator 3: nota 80
+
+Nota autoavaliação = ((40 * 2) + (80 * 3) + (80 * 5)) / (2 + 3 + 5)
+NOta autoavaliação = (80 + 240 + 400) / 10
+Nota autoavaliação = 720 / 10
+Nota autoavaliação = 72
+
+A avaliação dos 2 pares:
+
+o Fator 1: Avaliador 1 - nota = 60; Avaliador 2 - nota = 80
+o Fator 2: Avaliador 1 - nota = 90; Avaliador 2 - nota = 100
+o Fator 3: Avaliador 1 - nota = 100; Avaliador 2 - nota = 70
+
+Tomaremos então, a soma simples das notas de cada avaliador, para cada Fator:
+
+• Fator 1: soma 140
+• Fator 2: soma 190
+• Fator 3: soma 170
+
+Nota dos pares = (((140 / 2) * 2) + ((190 / 2) * 3) + ((170 / 2) * 5)) / (2 + 3 + 5)
+Nota dos pares = (140 + 285 + 425) / 10
+Nota dos pares = 85
+
+Para calcular a nota dos Fatores, é necessário considerar os pesos:
+
+Chefia: peso 0,6
+Autoavaliação: peso 0,15
+Pares ou Subordinados: peso 0,25
+
+Nota dos Fatores = ((Nota da Chefia * peso da chefia) + (Nota autoavaliação * peso autoavaliação) + (Nota dos pares * peso dos pares)) / (Soma dos pesos)
+
+Nota dos Fatores = ((80 * 0,60) + (72 * 0,15) + (85 * 0,25)) / (0,6 + 0,15 + 0,25 )
+Nota dos Fatores = (48 + 10,8 + 21,25) / (1)
+Nota dos Fatores = 80,05
+
+Com as notas das Metas e as notas dos Fatores, podemos seguir para a Avaliaçao Individual.
+
+Nota da Avaliação Individual = ((Nota das Metas * peso Metas) + (Nota dos Fatores + peso Fatores)) / (peso Metas + peso Fatores)
+
+Os pesos aqui utilizados estão definidos na Estrutura da Avaliação Institucional.
+
+Nota da Avaliação Individual = (83,5 * 0,6 + 80,05 * 0,4) / (0,6 + 0,4)
+Nota da Avaliação Individual = (50,1 + 32,02) / 1
+Nota da Avaliação Individual = 82,12 
+
+A nota da Avaliação Individual é então comparada com os intervalos definidos na escala de Conceitos e assume o valor superior da escala correspondente.
+
+O valor 82,12 está entre 76 e 99, que corresponde ao conceito "Alto Desempenho".
+
+A nota de Avaliação Individual é corrigida então para 99.
+
+Por fim, a Avaliação Final pode ser calculada.
+
+Os pesos estão definidos na Estrutura da Avaliação Final.
+
+Avaliação Final = ((Avaliação Institucional * peso Institucional) + (Avaliação Individual * peso Individual)) / (soma dos pesos)
+
+Avaliação Final = (100 * 0,8 + 99 * 0,2) / (0,8 + 0,2)
+Avaliação Final = 99,8

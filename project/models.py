@@ -24,6 +24,23 @@ import locale
 
 from project import db
 
+## dados o órgão
+class Orgao(db.Model):
+
+    __tablename__ = "orgao"
+
+    id    = db.Column(db.Integer,primary_key=True)
+    sigla = db.Column(db.String)
+    nome  = db.Column(db.String)
+    
+    def __init__ (self,sigla,nome):
+
+        self.sigla = sigla
+        self.nome = nome
+
+    def __repr__ (self):
+        return f"{self.sigla};{self.nome};" 
+
 ## Pesos da avaliação final
 class Estrutura_AF (db.Model):
 

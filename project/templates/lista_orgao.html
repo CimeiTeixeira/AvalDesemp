@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+<div class="jumbotron">
+
+
+  <h5>Órgão</h5>
+
+
+  <table class="table table-striped table-hover table-sm">
+    <caption>Órgão</caption>
+    <thead>
+      <tr>
+        <th scope="col"><p align="center">Sigla</p></th>
+        <th scope="col"><p align="center">Nome</p></th>
+        <th scope="col"><p align="center">Ações</p></th>
+      </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+        <td><p align="center">{{orgao.sigla}}</p></td>
+        <td>{{orgao.nome}}</td>
+        <td><p align="center">
+        <a href="{{url_for('core.edit_orgao', orgao_id=orgao.id)}}" class="btn btn-sm btn-warning">Editar</a>
+        </p></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+</div>
+</div>
+{% endblock %}

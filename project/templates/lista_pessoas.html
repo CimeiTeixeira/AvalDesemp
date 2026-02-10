@@ -80,9 +80,9 @@
           <td><p align = "center"> <a href="{{url_for('core.see_notas', ano=pessoa['ano'], ciclo=pessoa['ciclo'], nome=pessoa['nome'])}}">{{ pessoa['nome'] }} </a></p></td>
           <td><p align = "center"> <a href="{{url_for('core.lista_metas', ano=pessoa['ano'], ciclo=pessoa['ciclo'], nome=pessoa['nome'])}}">{{ pessoa['qtd_metas'] }} </a></p></td>
           <td><p align = "center"> {{ pessoa['nota_metas']|decimal_com_virgula }} </p></td>
-          <td><p align = "center"> {{ pessoa['NF_chefe']|decimal_com_virgula }} </p></td>
-          <td><p align = "center"> {{ pessoa['NF_aa']|decimal_com_virgula }} </p></td>
-          <td><p align = "center"> {{ pessoa['NF_pares']|decimal_com_virgula }} </p></td>
+          <td><p align = "center"> {{ pessoa['nota_chefe']|decimal_com_virgula }} </p></td>
+          <td><p align = "center"> {{ pessoa['nota_aa']|decimal_com_virgula }} </p></td>
+          <td><p align = "center"> {{ pessoa['nota_pares']|decimal_com_virgula }} </p></td>
           <td><p align = "center"> {{ pessoa['nota_fatores']|decimal_com_virgula }} </p></td>
           <td><p align = "center"> {{ pessoa['nota_final_individual']|decimal_com_virgula }} </p></td>
           <td><p align = "center"> {{ pessoa['nota_final_individual_corrigida']|decimal_com_virgula }} </p></td>

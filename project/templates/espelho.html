@@ -6,8 +6,8 @@
 <table class="table table-bordered">
   <thead>
     <tr style="text-align:center">
-      <th scope="col">CNPq</span></th>
-      <th scope="col">Conselho Nacional de Desenvolvimento Científico e Tecnológico</th>
+      <th scope="col">{{orgao.sigla}}</span></th>
+      <th scope="col">{{orgao.nome}}</th>
       <th scope="col">Avaliação de Desempenho Individual</th>
       <th scope="col">Ciclo: {{ciclo}}</th>
     </tr>
@@ -30,9 +30,9 @@
     <tr style="text-align:center">
       <th scope="col">#</th>
       <th scope="col">Descrição</th>
-      <th scope="col">Alcance Apurado (%)</th>
+      <th scope="col">Nota</th>
       <th scope="col">Peso</th>
-      <th scope="col">Total (Peso x Alcance Apurado)</th>
+      <th scope="col">Total (Peso x Nota)</th>
   </thead>
 
   <tbody>
@@ -238,18 +238,26 @@
 
       <tr>
         <th scope="row" style="text-align:center">Total da nota:</th>
-        <td style="text-align:center">{{(calc.total_chefe|round(2))|decimal_com_virgula}}</td>
-        <td style="text-align:center">{{(calc.total_aa|round(2))|decimal_com_virgula}}</td>
+        <td style="text-align:center">{{(nota_chefe_final|round(2))|decimal_com_virgula}}</td>
+        <td style="text-align:center">{{(nota_aa_final|round(2))|decimal_com_virgula}}</td>
         <td style="text-align:center">{% if calc.total_pares == None%}
                                         {{0|decimal_com_virgula}}
                                       {% else %}  
-                                        {{(calc.total_pares|round(2))|decimal_com_virgula}}</td>
+                                        {{(nota_pares_final|round(2))|decimal_com_virgula}}</td>
                                       {% endif %}  
-        <td style="text-align:center">{% if calc.total_pares == None%}
+        <td style="text-align:center">{% if calc.total_pares == 0 %}
                                         {{(calc.nota_fatores_sem_pares|round(2))|decimal_com_virgula}}
                                       {% else %}  
                                         {{(calc.nota_fatores|round(2))|decimal_com_virgula}}</td>
                                       {% endif %}</td>
+      </tr>
+
+      <tr>
+        <th scope="row" style="text-align:center">Pesos utilizados:</th>
+        <td style="text-align:center">{{peso_chefe|decimal_com_virgula_2}}</td>
+        <td style="text-align:center">{{peso_aa|decimal_com_virgula_2}}</td>
+        <td style="text-align:center">{{peso_pares|decimal_com_virgula_2}}</td>  
+        <td style="text-align:center">-</td>
       </tr>
 
   </tbody>

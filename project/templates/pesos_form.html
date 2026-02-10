@@ -5,14 +5,17 @@
     text-align: center;
   }
 </style>
+
+<div class="container">
 <div class="jumbotron">
+
   <h5>{{acao}} Pesos</h5>
 
   <form method="POST">
     {{ form.hidden_tag() }}
 
     <div class="form-row">
-        <div class="col-1">
+        <div class="col-2">
             <div class="form-group">
             {{ form.chefe.label(class="form-control-label") }}
             {% if form.chefe.errors %}
@@ -30,7 +33,7 @@
     </div>
 
     <div class="form-row">
-        <div class="col-1">
+        <div class="col-2">
             <div class="form-group">
             {{ form.aa.label(class="form-control-label") }}
             {% if form.aa.errors %}
@@ -48,7 +51,7 @@
     </div>
 
     <div class="form-row">
-        <div class="col-1">
+        <div class="col-2">
             <div class="form-group">
             {{ form.pares.label(class="form-control-label") }}
             {% if form.pares.errors %}
@@ -71,5 +74,7 @@
     </div>
 
   </form>
+
+</div>
 </div>
 {% endblock %}

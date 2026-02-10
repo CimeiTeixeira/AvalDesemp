@@ -114,7 +114,7 @@
     <table class="table table-striped table-hover table-sm">
       <thead>
         <tr>
-          <th scope="col"><p align="center">ID</p></th>
+          <th scope="col"><p align="center">#</p></th>
           <th scope="col"><p align="center">Nome</p></th>
           <th scope="col"><p align="center">Descrição</p></th>
           <th scope="col"><p align="center">Peso</p></th>
@@ -126,7 +126,7 @@
       <tbody>
         {% for fator in fatores %}
           <tr>
-            <td><p align="center">{{ fator.id }}</p></td>
+            <td><p align="center">{{ loop.index }}</p></td>
             <td><p align="center">{{ fator.apelido }}</p></td>
             <td><p align="center">{{ fator.desc }}</p></td>
             <td><p align="center">{{ fator.peso|decimal_com_virgula }}</p></td>

@@ -19,10 +19,10 @@ from flask import render_template,url_for,flash, redirect, Blueprint, request
 from project import db
 
 from project.core.forms import AlcanceMetasForm, NotasFatoresForm, EscalaDesempenhoForm,\
-                               PesosForm, EstruturaAIForm, EstruturaAFForm, FatoresForm
+                               PesosForm, EstruturaAIForm, EstruturaAFForm, FatoresForm, OrgaoForm
 
 from project.models import AFMI,MPAF, Escala_Desempenho, Escala_Metas_Individuais,\
-                           Fatores, Metas_Individuais, Notas, Estrutura_AF, Estrutura_AI, Pesos
+                           Fatores, Metas_Individuais, Notas, Estrutura_AF, Estrutura_AI, Pesos, Orgao
 
 core = Blueprint("core",__name__)
 
@@ -209,8 +209,6 @@ def lista_pessoas():
 
     escala_desemp = db.session.query(Escala_Desempenho).order_by(Escala_Desempenho.alcance).all()
 
-    escala_metas = db.session.query(Escala_Metas_Individuais).order_by(Escala_Metas_Individuais.pontuacao).all()
-
     pesos_ai = db.session.query(Estrutura_AI).first()
 
     pesos_af = db.session.query(Estrutura_AF).first()
@@ -222,6 +220,9 @@ def lista_pessoas():
                             AFMI.qtd_metas,
                             AFMI.AFMI,
                             MPAF.qtd_pares,
+                            MPAF.MPFAA,
+                            MPAF.MPFP,
+                            MPAF.MPFC,
                             MPAF.total_chefe,
                             MPAF.total_aa,
                             MPAF.total_pares,
@@ -237,14 +238,6 @@ def lista_pessoas():
     for indiv in calc:
 
         pessoa = {}
-       
-        for escala in escala_metas:
-
-            if indiv.AFMI is None: 
-                NMFI = 0
-            else:
-                if indiv.AFMI > escala.alcance_inf:
-                    NMFI = escala.pontuacao
 
         pessoa['nome'] = indiv.nome
         pessoa['ano'] = indiv.ano
@@ -256,11 +249,6 @@ def lista_pessoas():
         else:    
             pessoa['qtd_metas'] = indiv.qtd_metas
 
-        if NMFI is None:    
-            pessoa['NMFI'] = 0
-        else:    
-            pessoa['NMFI'] = round(float(NMFI),2)
-
         pessoa['nota_metas'] = round(float(indiv.AFMI),2) if indiv.AFMI is not None else 0
 
         if indiv.qtd_pares == 0:
@@ -268,19 +256,12 @@ def lista_pessoas():
         else:
             pessoa['nota_fatores'] = round(float(indiv.nota_fatores),2) if indiv.nota_fatores is not None else 0
 
-        pessoa['NF_chefe']  = round(float(indiv.total_chefe),2)
-        pessoa['NF_aa']     = round(float(indiv.total_aa),2)
-
-        if indiv.total_pares is None:
-            pessoa['NF_pares'] = 0
-        else:
-            pessoa['NF_pares']  = round(float(indiv.total_pares),2)
-
-        # nota_fatores =  20 * 0.9 * alcance / 100
-            
-        # pessoa['nota_fatores'] = round(float(nota_fatores),2)
-
-        # pessoa['nota_final'] = round(float(NMFI + nota_fatores),2)
+        # NOTA PARES SEM PESO
+        pessoa['nota_pares'] = round(float(indiv.MPFP),2) if indiv.MPFP is not None else 0    
+        # NOTA CHEFES SEM PESO
+        pessoa['nota_chefe'] = round(float(indiv.MPFC),2) if indiv.MPFC is not None else 0
+        # NOTA AUTOAVALIAÇÃO SEM PESO
+        pessoa['nota_aa'] = round(float(indiv.MPFAA),2) if indiv.MPFAA is not None else 0
 
         pessoa['nota_final_individual'] = round((pessoa['nota_metas'] * pesos_ai.peso_metas + pessoa['nota_fatores'] * pesos_ai.peso_fatores) / (pesos_ai.peso_metas + pesos_ai.peso_fatores),2)
 
@@ -290,7 +271,7 @@ def lista_pessoas():
                 pessoa['pontuacao_pagamento'] = escala.alcance
                 pessoa['nota_final_individual_corrigida'] = escala.intervalo_sup
 
-        pessoa['avaliacao_final'] = round((pessoa['nota_final_individual'] * pesos_af.peso_individual + indiv.nota_institucional * pesos_af.peso_institucional) / (pesos_af.peso_individual + pesos_af.peso_institucional),2)
+        pessoa['avaliacao_final'] = round((pessoa['nota_final_individual_corrigida'] * pesos_af.peso_individual + indiv.nota_institucional * pesos_af.peso_institucional) / (pesos_af.peso_individual + pesos_af.peso_institucional),2)
 
         pessoas.append(pessoa)
 
@@ -332,7 +313,7 @@ def add_notas():
     """
 
     form = NotasFatoresForm()
-    fatores = db.session.query(Fatores).order_by(Fatores.id).all()
+    fatores = db.session.query(Fatores).order_by(Fatores.apelido).all()
 
     if form.validate_on_submit():
         
@@ -369,7 +350,7 @@ def add_notas():
         
         db.session.commit()
         flash(f'Notas de {form.nome.data} foram registradas!', 'sucesso')
-        return redirect(url_for('core.see_notas', ano=form.ano.data, ciclo=form.ciclo.data, nome=form.nome.data))
+        return redirect(url_for('core.add_meta', ano=form.ano.data, ciclo=form.ciclo.data, nome=form.nome.data))
 
     else:
         return render_template('add_notas_dinamico.html', form=form, fatores=fatores)
@@ -385,7 +366,7 @@ def see_notas(ano,ciclo,nome):
     """
 
     form = NotasFatoresForm()
-    fatores = db.session.query(Fatores).order_by(Fatores.id).all()
+    fatores = db.session.query(Fatores).order_by(Fatores.apelido).all()
     notas_fatores = db.session.query(Notas).filter(Notas.nome == nome,
                                                    Notas.ano == ano,
                                                    Notas.ciclo == ciclo).order_by(Notas.fator_id).all()
@@ -526,6 +507,53 @@ def add_meta(ano,ciclo,nome):
         return render_template('add_meta.html',nome=nome,ano=ano,ciclo=ciclo,form=form)  
 
 
+@core.route('/<int:id>/<int:ano>/<int:ciclo>/<nome>/edit_meta', methods=['GET', 'POST'])
+def edit_meta(id,ano,ciclo,nome):
+    """
+    +---------------------------------------------------------------------------------------+
+    |Editar meta de uma pessoa.                                                            |
+    +---------------------------------------------------------------------------------------+
+    """
+
+    def is_float(s):
+        """
+        Verifica se string pode ser convertida para float.
+        """
+        try:
+            float(s)
+            return True
+        except ValueError:
+            return False
+
+    meta = db.session.query(Metas_Individuais).get_or_404(id)
+    form = AlcanceMetasForm()
+
+    if form.validate_on_submit():
+
+        if not is_float(virg_ponto(form.alcance.data)):
+            flash('A nota deve ser um valor numérico!','erro')
+            return render_template('add_meta.html',nome=nome,ano=ano,ciclo=ciclo,form=form)
+
+        if float(virg_ponto(form.alcance.data)) < 0 or float(virg_ponto(form.alcance.data)) > 100:
+            flash('A nota deve estar entre 0 e 100!','erro')
+            return render_template('add_meta.html',nome=nome,ano=ano,ciclo=ciclo,form=form)
+
+        meta.meta = form.meta_i.data
+        meta.alcance = float(virg_ponto(form.alcance.data))
+        meta.peso = form.peso.data
+
+        db.session.commit()
+
+        flash('Meta atualizada com sucesso!','sucesso')
+        return redirect(url_for('core.lista_metas',ano=ano,ciclo=ciclo, nome=nome))
+
+    elif request.method == 'GET':
+        form.meta_i.data = meta.meta
+        form.alcance.data = ponto_virg(str(meta.alcance))
+        form.peso.data = str(int(meta.peso))
+
+    return render_template('add_meta.html',nome=nome,ano=ano,ciclo=ciclo,form=form)
+
 
 @core.route('/<int:id>/<int:ano>/<int:ciclo>/<nome>/deleta_meta', methods=['GET', 'POST'])
 def deleta_meta(id,ano,ciclo,nome):
@@ -551,9 +579,11 @@ def espelho(ano,ciclo,nome):
     +---------------------------------------------------------------------------------------+
     """
 
+    orgao = db.session.query(Orgao).first()
+
     escala_desemp = db.session.query(Escala_Desempenho).order_by(Escala_Desempenho.alcance).all()
 
-    escala_metas = db.session.query(Escala_Metas_Individuais).order_by(Escala_Metas_Individuais.pontuacao).all()
+    pesos = db.session.query(Pesos).first()
 
     pesos_ai = db.session.query(Estrutura_AI).first()
 
@@ -570,8 +600,9 @@ def espelho(ano,ciclo,nome):
                                      Fatores.peso)\
                               .filter(Notas.nome == nome,
                                       Notas.ano == ano,
-                                      Notas.ciclo == ciclo).order_by(Notas.fator_id)\
+                                      Notas.ciclo == ciclo)\
                               .join(Fatores,Fatores.id == Notas.fator_id)\
+                              .order_by(Fatores.apelido)\
                               .all() 
 
     calc = db.session.query(MPAF.nome,
@@ -609,20 +640,25 @@ def espelho(ano,ciclo,nome):
                              MPAF.ciclo == ciclo)\
                      .first()
 
-    for escala in escala_metas:
-
-        if calc.AFMI is None: 
-            NMFI = 0
-        else:
-            if calc.AFMI > escala.alcance_inf:
-                NMFI = escala.pontuacao
 
     nota_metas = round(float(calc.AFMI),2) if calc.AFMI is not None else 0
 
     if calc.qtd_pares == 0:
         MPAF_indiv = calc.nota_fatores_sem_pares
+        peso_chefe = round(float(pesos.chefe + pesos.pares / 2),2)
+        peso_aa = round(float(pesos.aa + pesos.pares / 2),2)
+        peso_pares = round(float(0),2)
+        nota_chefe_final = (calc.pontos_chefe / calc.soma_fatores_pesos) * peso_chefe
+        nota_aa_final = (calc.pontos_aa / calc.soma_fatores_pesos) * peso_aa
+        nota_pares_final = (calc.media_notas_pares_vezes_pesos / calc.soma_fatores_pesos) * peso_pares
     else:
         MPAF_indiv = calc.nota_fatores
+        peso_chefe = round(float(pesos.chefe),2)
+        peso_aa = round(float(pesos.aa),2)
+        peso_pares = round(float(pesos.pares),2)
+        nota_chefe_final = calc.total_chefe
+        nota_aa_final = calc.total_aa
+        nota_pares_final = calc.total_pares
 
     nota_final_individual = round((nota_metas * pesos_ai.peso_metas + MPAF_indiv * pesos_ai.peso_fatores) / (pesos_ai.peso_metas + pesos_ai.peso_fatores),2)
 
@@ -635,14 +671,16 @@ def espelho(ano,ciclo,nome):
            conceito = escala.escala
            nota_final_individual_corrigida = escala.intervalo_sup
 
-    avaliacao_final = round((nota_final_individual * pesos_af.peso_individual + calc.nota_institucional * pesos_af.peso_institucional) / (pesos_af.peso_individual + pesos_af.peso_institucional),2)
+    avaliacao_final = round((nota_final_individual_corrigida * pesos_af.peso_individual + calc.nota_institucional * pesos_af.peso_institucional) / (pesos_af.peso_individual + pesos_af.peso_institucional),2)
 
     nota_final = avaliacao_final
 
     return render_template('espelho.html',metas=metas,notas_fatores=notas_fatores,calc=calc,nome=nome,ciclo=ciclo,
                                           conceito=conceito, alcance=alcance, nota_fatores=nota_fatores, nota_final=nota_final,
                                           nota_final_individual_corrigida = nota_final_individual_corrigida,
-                                          NMFI = NMFI)
+                                          peso_chefe = peso_chefe, peso_aa = peso_aa, peso_pares = peso_pares,
+                                          nota_chefe_final = nota_chefe_final, nota_aa_final = nota_aa_final, nota_pares_final = nota_pares_final,
+                                          orgao = orgao)
 
 
 # ========== CRUD Escala de Desempenho ==========
@@ -942,4 +980,70 @@ def delete_fatores(fator_id):
 
     flash('Fator deletado com sucesso!', 'sucesso')
     return redirect(url_for('core.lista_fatores'))
+
+
+
+# ========== Listagem e Edição de Órgão ==========
+
+@core.route('/lista_orgao')
+def lista_orgao():
+    """
+    +---------------------------------------------------------------------------------------+
+    |Lista todos os registros da tabela orgao.                                              |
+    +---------------------------------------------------------------------------------------+
+    """
+    orgao = db.session.query(Orgao).first()
+  
+    if not orgao:
+        return redirect(url_for('core.add_orgao'))
+
+    return render_template('lista_orgao.html', orgao=orgao)
+
+
+@core.route('/add_orgao', methods=['GET', 'POST'])
+def add_orgao():
+    """
+    +---------------------------------------------------------------------------------------+
+    |Adiciona um registro na tabela orgao.                                                  |
+    +---------------------------------------------------------------------------------------+
+    """
+    form = OrgaoForm()
+
+    if form.validate_on_submit():
+        orgao = Orgao(sigla=form.sigla.data, nome=form.nome.data)
+
+        db.session.add(orgao)
+        db.session.commit()
+
+        flash('Orgao cadastrado com sucesso!', 'sucesso')
+        return redirect(url_for('core.lista_orgao'))
+
+    return render_template('orgao_form.html', form=form, acao='Adicionar')
+
+
+@core.route('/edit_orgao/<int:orgao_id>', methods=['GET', 'POST'])
+def edit_orgao(orgao_id):
+    """
+    +---------------------------------------------------------------------------------------+
+    |Edita um registro da tabela orgao.                                                     |
+    +---------------------------------------------------------------------------------------+
+    """
+    orgao = db.session.query(Orgao).get_or_404(orgao_id)
+
+    form = OrgaoForm()
+
+    if form.validate_on_submit():
+        orgao.sigla = form.sigla.data
+        orgao.nome = form.nome.data
+
+        db.session.commit()
+
+        flash('Órgão atualizado com sucesso!', 'sucesso')
+        return redirect(url_for('core.lista_orgao'))
+
+    elif request.method == 'GET':
+        form.sigla.data = orgao.sigla
+        form.nome.data = orgao.nome
+
+    return render_template('orgao_form.html', form=form, acao='Editar')
 

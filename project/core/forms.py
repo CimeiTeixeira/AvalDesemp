@@ -6,7 +6,7 @@
 
 """
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, SelectField, FieldList, FormField
+from wtforms import StringField, SubmitField, IntegerField, SelectField, FieldList, FormField, TextAreaField
 from wtforms.validators import DataRequired
 from wtforms import ValidationError
 from flask import flash
@@ -71,7 +71,14 @@ class EstruturaAFForm(FlaskForm):
 class FatoresForm(FlaskForm):
 
     apelido = StringField('Apelido: ', validators=[DataRequired(message="Informe o apelido!")])
-    desc    = StringField('Descrição: ', validators=[DataRequired(message="Informe a descrição!")])
+    desc    = TextAreaField('Descrição: ', validators=[DataRequired(message="Informe a descrição!")])
     peso    = StringField('Peso: ', validators=[DataRequired(message="Informe o peso!")])
 
     submit   = SubmitField('Registrar')
+
+class OrgaoForm(FlaskForm):
+
+    sigla = StringField('Sigla: ', validators=[DataRequired(message="Informe a sigla!")])
+    nome  = StringField('Nome: ', validators=[DataRequired(message="Informe o nome!")])
+
+    submit   = SubmitField('Salvar')

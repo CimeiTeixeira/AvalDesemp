@@ -17,6 +17,13 @@ def decimal_com_virgula(valor):
     else:
         return locale.format_string('%.1f',valor,grouping=True)
     
+@app.template_filter('decimal_com_virgula_2')
+def decimal_com_virgula_2(valor):
+    if valor == None or valor == '':
+        return 0
+    else:
+        return locale.format_string('%.2f',valor,grouping=True)    
+    
 @app.route('/')
 def index():
     return render_template('home.html')

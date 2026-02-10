@@ -29,46 +29,51 @@
         <th scope="col"><p align = "center">Meta</p></th>
         <th scope="col"><p align = "center">Nota</p></th>
         <th scope="col"><p align = "center">Peso</p></th>
+        <th scope="col"><p align = "center">Ações</p></th>
       </tr>
     </thead>
     <tbody>
       {% for meta in metas %}
         <tr>
           <th scope="row"><p align = "center">
-              <abbr title="ATENÇÃO!! CLIQUE NESTE BOTÃO PARA DELETAR O REGISTRO.">
-              <button type="button" class="btn btn-danger" data-toggle='modal' data-target='#del_modal{{meta.id}}'>{{metas.index(meta) + 1}}</button>
-
-              {# modal para deleção de pessoa #}
-
-              <div class="modal" tabindex="-1" role="dialog" id="del_modal{{meta.id}}">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <div class="p-3 mb-2 bg-danger text-white">
-                      <h5 class="modal-title">Deletar registro?</h5>
-                      </div>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <p>Deseja realmente deletar este registro?</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                      <form action="{{url_for('core.deleta_meta',id=meta.id,ano=ano, ciclo=ciclo, nome=nome)}}" method="post">
-                        <input class="btn btn-danger" type="submit" name="" value="Excluir">
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+              {{metas.index(meta) + 1}}
           </p></th>
 
           <td><p align = "center"> {{ meta.meta }} </p></td>
-          <td><p align = "center"> {{ meta.alcance }} </p></td>
-          <td><p align = "center"> {{ meta.peso }} </p></td>
+          <td><p align = "center"> {{ meta.alcance|decimal_com_virgula }} </p></td>
+          <td><p align = "center"> {{ meta.peso|decimal_com_virgula }} </p></td>
+          <td><p align = "center">
+            <a href="{{url_for('core.edit_meta', id=meta.id, ano=ano, ciclo=ciclo, nome=nome)}}" class="btn btn-sm btn-warning">Editar</a>
+            <abbr title="ATENÇÃO!! CLIQUE NESTE BOTÃO PARA DELETAR O REGISTRO.">
+            <button type="button" class="btn btn-danger btn-sm" data-toggle='modal' data-target='#del_modal{{meta.id}}'>Deletar</button>
+            </abbr>
+
+            {# modal para deleção de meta #}
+
+            <div class="modal" tabindex="-1" role="dialog" id="del_modal{{meta.id}}">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <div class="p-3 mb-2 bg-danger text-white">
+                    <h5 class="modal-title">Deletar registro?</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Deseja realmente deletar este registro?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <form action="{{url_for('core.deleta_meta',id=meta.id,ano=ano, ciclo=ciclo, nome=nome)}}" method="post">
+                      <input class="btn btn-danger" type="submit" name="" value="Excluir">
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p></td>
         </tr>
       {% endfor %}
 

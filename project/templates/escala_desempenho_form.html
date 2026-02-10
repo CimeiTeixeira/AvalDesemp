@@ -5,7 +5,10 @@
         text-align: center;
     }
 </style>
+
+<div class="container">
 <div class="jumbotron">
+    
   <h5>{{acao}} Escala de Desempenho</h5>
 
   <form method="POST">
@@ -30,7 +33,7 @@
     </div>
 
     <div class="form-row">
-        <div class="col-1">
+        <div class="col-2">
             <div class="form-group">
             {{ form.alcance.label(class="form-control-label") }}
             {% if form.alcance.errors %}
@@ -48,7 +51,7 @@
     </div>
 
     <div class="form-row">
-        <div class="col-1">
+        <div class="col-2">
             <div class="form-group">
             {{ form.intervalo_inf.label(class="form-control-label") }}
             {% if form.intervalo_inf.errors %}
@@ -66,7 +69,7 @@
     </div>
 
     <div class="form-row">
-        <div class="col-1">
+        <div class="col-2">
             <div class="form-group">
             {{ form.intervalo_sup.label(class="form-control-label") }}
             {% if form.intervalo_sup.errors %}
@@ -89,5 +92,7 @@
     </div>
 
   </form>
+
+</div>
 </div>
 {% endblock %}
