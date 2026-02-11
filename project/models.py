@@ -8,8 +8,10 @@
 
     O banco de dados de notas possui os modelos:
 
+    * orgao
+    * estrutura_af
+    * estrutura_ai
     * escala_desempenho
-    * escala_metas_individuais
     * fatores
     * metas_individuais
     * notas
@@ -96,24 +98,6 @@ class Escala_Desempenho (db.Model):
     def __repr__ (self):
         return f"{self.escala};{self.alcance};{self.intevalo_inf};{self.intervalo_sup};"
 
-## escala de metas individuais
-class Escala_Metas_Individuais (db.Model):
-
-    __tablename__ = "escala_metas_individuais"
-
-    id          = db.Column(db.Integer,primary_key=True)
-    alcance_inf = db.Column(db.Float)
-    alcance_sup = db.Column(db.Float)
-    pontuacao   = db.Column(db.Float)
-    
-    def __init__ (self,alcance_inf,alcance_sup,pontuacao):
-
-        self.alcance_inf = alcance_inf
-        self.alcance_sup = alcance_sup
-        self.pontuacao   = pontuacao
-
-    def __repr__ (self):
-        return f"{self.alcance_inf};{self.alcance_sup};{self.pontuacao};"
 
 ## fatores
 class Fatores (db.Model):

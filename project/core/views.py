@@ -21,7 +21,7 @@ from project import db
 from project.core.forms import AlcanceMetasForm, NotasFatoresForm, EscalaDesempenhoForm,\
                                PesosForm, EstruturaAIForm, EstruturaAFForm, FatoresForm, OrgaoForm
 
-from project.models import AFMI,MPAF, Escala_Desempenho, Escala_Metas_Individuais,\
+from project.models import AFMI,MPAF, Escala_Desempenho,\
                            Fatores, Metas_Individuais, Notas, Estrutura_AF, Estrutura_AI, Pesos, Orgao
 
 core = Blueprint("core",__name__)
