@@ -1,12 +1,13 @@
-# Avaliação de Desempenho (Aval. Desemp.)
+# Avaliação de Desempenho (AvalDesemp)
 
 ## Descrição
 
-Sistema de Avaliação de Desempenho é uma aplicação web desenvolvida com Flask que permite gerenciar e acompanhar as avaliações de desempenho de colaboradores em uma organização.
+Sistema de Avaliação de Desempenho é uma aplicação web desenvolvida em Python-Flask que permite gerenciar e acompanhar as avaliações de desempenho de colaboradores em uma organização.
 
 ## Funcionalidades
 
 ### Gestão de Estruturas
+- **Órgão**: Sigla e Nome do órgão
 - **Estrutura AF**: Configuração dos pesos de avaliação (institucional e individual)
 - **Estrutura AI**: Configuração dos pesos de avaliação individual (metas e fatores)
 - **Pesos**: Definição dos pesos das avaliações (chefe, autoavaliação, pares)
@@ -37,7 +38,13 @@ Sistema de Avaliação de Desempenho é uma aplicação web desenvolvida com Fla
 2. Crie um ambiente virtual: `python -m venv venv`
 3. Ative o ambiente virtual: `venv\Scripts\activate`
 4. Instale as dependências: `pip install -r requirements.txt`
+5. Coloque o arquivo do banco de dados (ver pasta Bundle) no local definido em `instance/flask.cfg`
 5. Execute a aplicação: `python app.py`
+
+OU
+
+1. Copie os 2 arquivos da pasta Bundle (executável e banco de dados) para uma pasta local. Nesta modalidade, os arquivos devem estar sempre juntos.
+2. Ao executar o arquivo, será montada um ambiente em pasta temporária para execução da aplicação (Pyinstaller).
 
 ## Uso
 
@@ -74,7 +81,7 @@ project/
 
 ## Banco de Dados
 
-A aplicação utiliza SQLite como banco de dados. O arquivo de banco é armazenado em `instance/flask.cfg` em desenvolvimento, ou no diretório da aplicação em modo produção (PyInstaller).
+A aplicação utiliza SQLite como banco de dados. O arquivo de banco fica no local definido em `instance/flask.cfg`, ou no diretório da aplicação (PyInstaller).
 
 ## Configuração
 
@@ -86,4 +93,4 @@ Desenvolvido para gerenciamento de avaliações de desempenho em organizações.
 
 ## Versão
 
-1.0.0
+2.1.0
