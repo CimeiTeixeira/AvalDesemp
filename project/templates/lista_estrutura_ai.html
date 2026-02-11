@@ -10,7 +10,9 @@
 <caption>
   <div class="row">
       <div class="col">
-        <p>Lista de <span class="badge badge-pill badge-primary">{{estruturas|length}}</span> registros cadastrados.</p>
+        {% if estrutura %}
+          <p> <span class="badge badge-pill badge-primary">1</span> registro cadastrado.</p>
+        {% endif %}
       </div>
   </div>
 </caption>
@@ -19,23 +21,19 @@
     <caption>Estrutura AI</caption>
     <thead>
       <tr>
-        <th scope="col"><p align="center">ID</p></th>
         <th scope="col"><p align="center">Peso Metas</p></th>
         <th scope="col"><p align="center">Peso Fatores</p></th>
         <th scope="col"><p align="center">Ações</p></th>
       </tr>
     </thead>
     <tbody>
-      {% for estrutura in estruturas %}
-        <tr>
-          <th scope="row"><p align="center">{{estrutura.id}}</p></th>
-          <td><p align="center">{{estrutura.peso_metas|decimal_com_virgula}}</p></td>
-          <td><p align="center">{{estrutura.peso_fatores|decimal_com_virgula}}</p></td>
-          <td><p align="center">
-            <a href="{{url_for('core.edit_estrutura_ai', estrutura_id=estrutura.id)}}" class="btn btn-sm btn-warning">Editar</a>
-          </p></td>
-        </tr>
-      {% endfor %}
+      <tr>
+        <td><p align="center">{{estrutura.peso_metas|decimal_com_virgula}}</p></td>
+        <td><p align="center">{{estrutura.peso_fatores|decimal_com_virgula}}</p></td>
+        <td><p align="center">
+          <a href="{{url_for('core.edit_estrutura_ai', estrutura_id=estrutura.id)}}" class="btn btn-sm btn-warning">Editar</a>
+        </p></td>
+      </tr>
     </tbody>
   </table>
 

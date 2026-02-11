@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="jumbotron">
-  <h5>Avaliação de Cedidos e de Recursos</h5>
+  <h5>Procedimento de Avaliação</h5>
 
     <div class="row">
       <div class="col">
         <a href="{{url_for('core.add_notas')}}" class="btn btn-primary" role="button" aria-pressed="false">
-          <abbr title="Inserir um novo registro na lista abaixo.">Inserir Pessoa e suas notas</a>
+          <abbr title="Inserir dados da pessoa, suas notas e metas.">Inserir Registro</abbr></a>
       </div>
     </div>
 <br>
@@ -77,8 +77,8 @@
 
           <td><p align = "center"> {{ pessoa['ano'] }} </p></td>
           <td><p align = "center"> {{ pessoa['ciclo'] }} </p></td>
-          <td><p align = "center"> <a href="{{url_for('core.see_notas', ano=pessoa['ano'], ciclo=pessoa['ciclo'], nome=pessoa['nome'])}}">{{ pessoa['nome'] }} </a></p></td>
-          <td><p align = "center"> <a href="{{url_for('core.lista_metas', ano=pessoa['ano'], ciclo=pessoa['ciclo'], nome=pessoa['nome'])}}">{{ pessoa['qtd_metas'] }} </a></p></td>
+          <td><p align = "center"><abbr title="Editar notas da pessoa."> <a href="{{url_for('core.see_notas', ano=pessoa['ano'], ciclo=pessoa['ciclo'], nome=pessoa['nome'])}}">{{ pessoa['nome'] }} </a></p></td>
+          <td><p align = "center"><abbr title="Editar metas da pessoa."> <a href="{{url_for('core.lista_metas', ano=pessoa['ano'], ciclo=pessoa['ciclo'], nome=pessoa['nome'])}}">{{ pessoa['qtd_metas'] }} </a></p></td>
           <td><p align = "center"> {{ pessoa['nota_metas']|decimal_com_virgula }} </p></td>
           <td><p align = "center"> {{ pessoa['nota_chefe']|decimal_com_virgula }} </p></td>
           <td><p align = "center"> {{ pessoa['nota_aa']|decimal_com_virgula }} </p></td>
@@ -88,7 +88,7 @@
           <td><p align = "center"> {{ pessoa['nota_final_individual_corrigida']|decimal_com_virgula }} </p></td>
           <td><p align = "center"> {{ pessoa['pontuacao_pagamento']|decimal_com_virgula }} </p></td>
           <td><p align = "center"> {{ pessoa['nota_institucional']|decimal_com_virgula }} </p></td>
-          <td><p align = "center"> <a href="{{url_for('core.espelho', ano=pessoa['ano'], ciclo=pessoa['ciclo'], nome=pessoa['nome'])}}">{{ pessoa['avaliacao_final']|decimal_com_virgula }} </a></p></td>
+          <td><p align = "center"><abbr title="Visualizar espelho da avaliação final."> <a href="{{url_for('core.espelho', ano=pessoa['ano'], ciclo=pessoa['ciclo'], nome=pessoa['nome'])}}">{{ pessoa['avaliacao_final']|decimal_com_virgula }} </a></p></td>
 
         </tr>
       {% endfor %}

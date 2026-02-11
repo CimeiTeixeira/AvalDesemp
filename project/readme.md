@@ -102,7 +102,7 @@ Avaliação Final = (8000 + 1500) (100)
 Avaliação Final = 9500 /100  
 Avaliação Final para fins de pagamento de GD = 95 pontos
 
-5. Exemplo de inserção de dados para uma pessoa e resultados obtidos
+5 Exemplo de inserção de dados para uma pessoa e resultados obtidos
 
 À uma determinada pessoa, foram atribuidas 3 Metas, com pesos diferentes:
 
@@ -128,9 +128,9 @@ Para o exemplo tivemos avaliação da chefia, autoavaliação e de 2 pares.
 
 A avaliação da chefia:
 
-o Fator 1: nota 60
-o Fator 2: nota 60
-o Fator 3: nota 100
+    o Fator 1: nota 60
+    o Fator 2: nota 60
+    o Fator 3: nota 100
 
 Nota da chefia = ((60 * 2) + (60 * 3) + (100 * 5)) / (2 + 3 + 5)
 Nota da chefia = (120 + 180 + 500) / 10

@@ -268,15 +268,11 @@ class MPAF (db.Model):
     total_pares         = db.Column(db.Float)
     nota_fatores        = db.Column(db.Float)
     nota_fatores_sem_pares = db.Column(db.Float)
-    soma_totais_cedidos = db.Column(db.Float)
-    soma_totais_recon   = db.Column(db.Float)
-    MPAF_cedidos        = db.Column(db.Float)
-    MPAF_recon          = db.Column(db.Float)
     
     def __init__ (self,chave,nome,ano,ciclo,nota_institucional,qtd_pares,soma_fatores_pesos,soma_notas_chefe,soma_notas_aa,
                   soma_notas_pares, media_notas_pares_vezes_pesos, pontos_chefe, 
                   pontos_aa,pontos_pares,MPFC,MPFAA,MPFP,total_chefe,total_aa,    
-                  total_pares,soma_totais_cedidos,soma_totais_recon,MPAF_cedidos,MPAF_recon,nota_fatores,nota_fatores_sem_pares):
+                  total_pares,nota_fatores,nota_fatores_sem_pares):
 
         self.chave               = chave
         self.nome                = nome
@@ -297,13 +293,9 @@ class MPAF (db.Model):
         self.total_chefe         = total_chefe
         self.total_aa            = total_aa
         self.total_pares         = total_pares
-        self.soma_totais_cedidos = soma_totais_cedidos
-        self.soma_totais_recon   = soma_totais_recon
-        self.MPAF_cedidos        = MPAF_cedidos
-        self.MPAF_recon          = MPAF_recon
         self.nota_fatores        = nota_fatores
         self.nota_fatores_sem_pares = nota_fatores_sem_pares
 
     def __repr__ (self):
-        return f"{self.chave};{self.nome};{self.ano};{self.ciclo};{self.nota_institucional};{self.qtd_pares};{self.pontos_chefe};{self.pontos_aa};{self.pontos_pares};{self.MPAF_cedidos};{self.MPAF_recon};"         
+        return f"{self.chave};{self.nome};{self.ano};{self.ciclo};{self.nota_institucional};{self.qtd_pares};{self.pontos_chefe};{self.pontos_aa};{self.pontos_pares}"         
 

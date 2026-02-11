@@ -227,9 +227,7 @@ def lista_pessoas():
                             MPAF.total_aa,
                             MPAF.total_pares,
                             MPAF.nota_fatores,
-                            MPAF.nota_fatores_sem_pares,
-                            MPAF.MPAF_cedidos,
-                            MPAF.MPAF_recon)\
+                            MPAF.nota_fatores_sem_pares)\
                      .outerjoin(AFMI, AFMI.chave == MPAF.chave)\
                      .all()  
 
@@ -629,11 +627,7 @@ def espelho(ano,ciclo,nome):
                             MPAF.total_pares,
                             MPAF.media_notas_pares_vezes_pesos,
                             MPAF.nota_fatores,
-                            MPAF.nota_fatores_sem_pares,
-                            MPAF.MPAF_cedidos,
-                            MPAF.soma_totais_cedidos,
-                            MPAF.soma_totais_recon,
-                            MPAF.MPAF_recon)\
+                            MPAF.nota_fatores_sem_pares)\
                      .outerjoin(AFMI, AFMI.chave == MPAF.chave)\
                      .filter(MPAF.nome == nome,
                              MPAF.ano  == ano,
@@ -825,9 +819,9 @@ def lista_estrutura_af():
     |Lista todos os registros da tabela estrutura_af.                                       |
     +---------------------------------------------------------------------------------------+
     """
-    estruturas = db.session.query(Estrutura_AF).order_by(Estrutura_AF.id).all()
+    estrutura = db.session.query(Estrutura_AF).order_by(Estrutura_AF.id).first()
 
-    return render_template('lista_estrutura_af.html', estruturas=estruturas)
+    return render_template('lista_estrutura_af.html', estrutura=estrutura)
 
 
 @core.route('/edit_estrutura_af/<int:estrutura_id>', methods=['GET', 'POST'])
@@ -866,9 +860,9 @@ def lista_estrutura_ai():
     |Lista todos os registros da tabela estrutura_ai.                                       |
     +---------------------------------------------------------------------------------------+
     """
-    estruturas = db.session.query(Estrutura_AI).order_by(Estrutura_AI.id).all()
+    estrutura = db.session.query(Estrutura_AI).order_by(Estrutura_AI.id).first()
 
-    return render_template('lista_estrutura_ai.html', estruturas=estruturas)
+    return render_template('lista_estrutura_ai.html', estrutura=estrutura)
 
 
 @core.route('/edit_estrutura_ai/<int:estrutura_id>', methods=['GET', 'POST'])
