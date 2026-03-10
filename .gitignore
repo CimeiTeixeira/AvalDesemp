@@ -13,3 +13,5 @@ dist/
 
 # PyBuilder
 *.egg-info/
+
+/README copy.md

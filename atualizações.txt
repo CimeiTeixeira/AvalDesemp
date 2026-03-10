@@ -1,10 +1,11 @@
 ## Atualizações ##
 
-Modelo de avaliação antigo.
-v 1.0
+Correções e ajustes.
+v2.1
 
 Ajustes para modelo de avaliação vigente.
 v 2.0
 
-Correções e ajustes.
-v2.1
+Modelo de avaliação antigo.
+v 1.0
+
