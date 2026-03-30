@@ -1,4 +1,6 @@
 # Python cache
+project/__pycache__/
+project/core/__pycache__/
 __pycache__/
 *.py[cod]
 *$py.class

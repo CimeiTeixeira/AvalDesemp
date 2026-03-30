@@ -265,7 +265,7 @@ def lista_pessoas():
 
         for escala in escala_desemp:
 
-            if pessoa['nota_final_individual'] >= escala.intervalo_inf and pessoa['nota_final_individual'] <= escala.intervalo_sup:
+            if round(pessoa['nota_final_individual']) >= escala.intervalo_inf and round(pessoa['nota_final_individual']) <= escala.intervalo_sup:
                 pessoa['pontuacao_pagamento'] = escala.alcance
                 pessoa['nota_final_individual_corrigida'] = escala.intervalo_sup
 
