@@ -660,7 +660,7 @@ def espelho(ano,ciclo,nome):
 
     for escala in escala_desemp:
 
-        if MPAF_indiv >= escala.intervalo_inf and MPAF_indiv <= escala.intervalo_sup:
+        if round(MPAF_indiv) >= escala.intervalo_inf and round(MPAF_indiv) <= escala.intervalo_sup:
            alcance = escala.alcance
            conceito = escala.escala
            nota_final_individual_corrigida = escala.intervalo_sup
