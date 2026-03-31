@@ -1,5 +1,8 @@
 ## Atualizações ##
 
+Correções de arredondamento
+v2.2
+
 Correções e ajustes.
 v2.1
 
